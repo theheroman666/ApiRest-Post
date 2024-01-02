@@ -58,7 +58,7 @@ func MakeEndPoints(serv Service) EndPoints {
 
 func makeCreateEndPoints(serv Service) Controller {
 	return func(w http.ResponseWriter, r *http.Request) {
-
+		w.Header().Set("Content-Type", "application/json")
 		var req CreateReq
 		govalidator.IsEmail(req.Email)
 
@@ -105,6 +105,8 @@ func makeCreateEndPoints(serv Service) Controller {
 
 func makeGetAllEndPoints(serv Service) Controller {
 	return func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+
 		paramfilter := r.URL.Query()
 
 		filters := Filters{
@@ -139,6 +141,8 @@ func makeGetAllEndPoints(serv Service) Controller {
 
 func makeGetEndPoints(serv Service) Controller {
 	return func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+
 		path := mux.Vars(r)
 		id := path["id"]
 		user, err := serv.Get(id)
@@ -154,6 +158,7 @@ func makeGetEndPoints(serv Service) Controller {
 
 func makeUpdateEndPoints(serv Service) Controller {
 	return func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
 		var req UpdateReq
 		// firstname := strings.TrimSpace(*req.FirstName)
 		// lastname := strings.TrimSpace(*req.LastName)
@@ -201,6 +206,8 @@ func makeUpdateEndPoints(serv Service) Controller {
 
 func makeDeleteEndPoints(serv Service) Controller {
 	return func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+
 		path := mux.Vars(r)
 		id := path["id"]
 		if err := serv.Delete(id); err != nil {
