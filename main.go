@@ -1,6 +1,7 @@
 package main
 
 import (
+	"goweb/internal/domain"
 	"goweb/internal/user"
 	"goweb/pkg/bootstrap"
 	"log"
@@ -25,7 +26,7 @@ func main() {
 	//borrar al publicar el proyecto
 	// db = db.Debug()
 
-	_ = db.AutoMigrate(&user.User{})
+	_ = db.AutoMigrate(&domain.User{})
 
 	userRepo := user.NewRepo(logger, db)
 	userSrv := user.NewService(logger, userRepo)
